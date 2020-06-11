@@ -3,7 +3,7 @@
 
 The module consists of 2 parts.
 1. Scarpe tweets over 30+ twitter accounts in past 24 hours.
-2. Vectorize the tweets, extract features, and clustering the tweets.
+2. Extract features from tweets, vectorize the tweets, and clustering the tweets.
 
 The size of the largest cluster should be concerned becuase it may be a topic that people hottly discussing.
 
