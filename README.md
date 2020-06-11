@@ -22,6 +22,7 @@ pip install -r requirements.txt
 ## Usage example
 
 ```sh
+elasticsearch -d
 cd ~/{{dir}}/tweet_sentiment_concentration
 python cronjobs.py
 ```
