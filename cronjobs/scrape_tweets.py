@@ -1,6 +1,6 @@
 from util import util
 from scraper.tweets_scraper import TweetScraper
-from models.tweet import Tweet
+from models.tweet.tweet import Tweet
 from elasticsearch_dsl.connections import connections
 import ssl
 from datetime import datetime

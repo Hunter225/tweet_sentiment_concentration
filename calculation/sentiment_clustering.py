@@ -1,4 +1,4 @@
-from models.getter import Getter
+from models.tweet.getter import Getter
 from datetime import datetime
 from util import preprocess, lcs, nlp_math, util
 from datetime import datetime
@@ -38,30 +38,30 @@ def cal_sentiment_clustering_size(start_time, end_time):
             if word not in  ['', '-']:
                 bow.add(word)
 
-    doc_frequency = []
+    word_frequency_in_docs = []
     for word in bow:
         word_count = 0
         for tweet in tweets:
             if util.is_en_word_in_string(word, tweet):
                 word_count = word_count + 1
-        doc_frequency.append({"word":word, "doc_frequency":word_count})
-    doc_frequency = sorted(doc_frequency, key = lambda i: i['doc_frequency'],reverse=True)
-    doc_frequency = doc_frequency[:20]
+        word_frequency_in_docs.append({"word":word, "word_frequency_in_docs":word_count})
+    word_frequency_in_docs = sorted(word_frequency_in_docs, key = lambda i: i['word_frequency_in_docs'],reverse=True)
+    word_frequency_in_docs = word_frequency_in_docs[:20]
     '''
-    if int(len(doc_frequency) * 0.02) > 5:
-        doc_frequency = doc_frequency[:int(len(doc_frequency) * 0.02)]
+    if int(len(word_frequency_in_docs) * 0.02) > 5:
+        word_frequency_in_docs = word_frequency_in_docs[:int(len(word_frequency_in_docs) * 0.02)]
     else:
-        doc_frequency = doc_frequency[:5]
+        word_frequency_in_docs = word_frequency_in_docs[:5]
     '''
     print(start_time)
     print(len(tweets))
-    print(doc_frequency)
+    print(word_frequency_in_docs)
 
     #generate bags of words(bow) vector space
     word_to_vec_dict = {}
     vec_to_word_dict = {}
     cardinality = 0
-    for pair in doc_frequency:
+    for pair in word_frequency_in_docs:
         word = pair["word"]
         word_to_vec_dict[word] = cardinality
         vec_to_word_dict[cardinality] = word
@@ -93,4 +93,4 @@ def cal_sentiment_clustering_size(start_time, end_time):
     max_cluster_size = max(cluster_sizes)
     portion_of_max_cluster = max_cluster_size / sum(cluster_sizes)
 
-    return portion_of_max_cluster
+    return portion_of_max_cluster, word_frequency_in_docs

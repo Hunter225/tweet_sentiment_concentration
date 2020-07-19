@@ -2,6 +2,7 @@ from calculation.sentiment_clustering import cal_sentiment_clustering_size
 from datetime import datetime
 from datetime import timedelta
 from threading import Thread
+import json
 
 def cal_daily_sentiment_concentration(daytime0, num_of_date, thread_results, index):
     thread_result = []
@@ -9,12 +10,9 @@ def cal_daily_sentiment_concentration(daytime0, num_of_date, thread_results, ind
         start_time = daytime0
         end_time = daytime0 + timedelta(days=1)
 
-        start_time_str = start_time.strftime("%d/%m/%Y %H:%M:%S")
-        end_time_str = end_time.strftime("%d/%m/%Y %H:%M:%S")
+        concentration_coefficient, word_frequency = cal_sentiment_clustering_size(start_time, end_time)
 
-        concentration_coefficient = cal_sentiment_clustering_size(start_time, end_time)
-
-        result = dict(start_time = start_time_str, end_time=end_time_str, concentration_coefficient = concentration_coefficient)
+        result = dict(start_time = start_time, end_time=end_time, concentration_coefficient = concentration_coefficient, word_frequency = json.dumps(word_frequency))
         thread_result.append(result)
         thread_results[index] = thread_result
 
