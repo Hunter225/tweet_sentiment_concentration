@@ -50,4 +50,4 @@ def _scrape_tweets(start_date_str, num_of_date_project, max_count_per_day):
 
 def run():
     yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
-    _scrape_tweets(yesterday, 1, 20)
+    _scrape_tweets(yesterday, 1, 40)
