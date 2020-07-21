@@ -18,19 +18,16 @@ def _scrape_tweets(start_date_str, num_of_date_project, max_count_per_day):
     tweet_accounts = util.read_tweet_accounts()
 
     for i in range(num_of_date_project):
-        print(datetime.now())
         end_date_str = _add_one_day_to_date_string(start_date_str)
         print(start_date_str)
-        
+        print(end_date_str)
+
+        Tweet.init()
         for screen_name in tweet_accounts:
 
             #print(screen_name)
             tweets = TweetScraper.get_tweets_from_user_timeline(screen_name, start_date_str, end_date_str, max_count_per_day)
 
-            connections.create_connection(hosts=['localhost'])
-            Tweet.init()
-            len_of_tweets = len(tweets)
-            #print("Total length of tweets: %s" % str(len_of_tweets))
             no_of_tweets_saved = 1
             for tweet in tweets:
                 try:

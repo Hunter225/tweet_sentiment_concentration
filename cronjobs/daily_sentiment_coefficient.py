@@ -2,19 +2,33 @@ from calculation.sentiment_concentration_coefficient import multi_thread_cal_dai
 from datetime import datetime, timedelta
 from models.concentration.concentration import Concentration
 from elasticsearch_dsl.connections import connections
+import statistics
 
 def run():
-    daytime0 = datetime.now() - timedelta(days=1)
+    daytime0 = datetime.utcnow() - timedelta(days=1)
     project_days = 1
     num_of_thread = 1
-    results = multi_thread_cal_daily_sentiment_concentration(daytime0, project_days, num_of_thread)
-    connections.create_connection(hosts=['localhost'])
+    runtimes = 1
+    trials = []
+    while runtimes <= 3:
+        results = multi_thread_cal_daily_sentiment_concentration(daytime0, project_days, num_of_thread)
+        trials.append(results)
+        runtimes = runtimes + 1
+    
     Concentration.init()
-    for result in results:
-        obj = Concentration(meta={'id': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")})
-        obj.start_time = result['start_time']
-        obj.end_time = result['end_time']
-        obj.concentration_coefficient = result['concentration_coefficient']
-        obj.word_frequency = result['word_frequency']
-        obj.save()
-        print(obj)
+    start_time = trials[0][0]['start_time']
+    end_time = trials[0][0]['end_time']
+    word_frequency = trials[0][0]['word_frequency']
+    concentrations = []
+    for trial in trials:
+        concentrations.append(trial[0]['concentration_coefficient'])
+    concentration_median = statistics.median(concentrations)
+
+    obj = Concentration(meta={'id': datetime.now().strftime("%Y-%m-%d")})
+    obj.date = datetime.now().strftime("%Y-%m-%d")
+    obj.start_time = start_time
+    obj.end_time = end_time
+    obj.concentration_coefficient = concentration_median
+    obj.word_frequency = word_frequency
+    obj.day_of_week = datetime.today().weekday()
+    obj.save()

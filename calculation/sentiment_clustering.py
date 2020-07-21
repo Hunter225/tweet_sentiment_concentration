@@ -53,9 +53,10 @@ def cal_sentiment_clustering_size(start_time, end_time):
     else:
         word_frequency_in_docs = word_frequency_in_docs[:5]
     '''
-    print(start_time)
-    print(len(tweets))
-    print(word_frequency_in_docs)
+    print("start time:" + str(start_time))
+    print("end time: " + str(end_time))
+    print("number of tweets: " + str(len(tweets)))
+    print("hot words: " + str(word_frequency_in_docs))
 
     #generate bags of words(bow) vector space
     word_to_vec_dict = {}
