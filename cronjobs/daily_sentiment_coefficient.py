@@ -6,6 +6,7 @@ import statistics
 
 def run():
     daytime0 = datetime.utcnow() - timedelta(days=1)
+    daytime1 = daytime0 + timedelta(days=1)
     project_days = 1
     num_of_thread = 1
     runtimes = 1
@@ -24,11 +25,11 @@ def run():
         concentrations.append(trial[0]['concentration_coefficient'])
     concentration_median = statistics.median(concentrations)
 
-    obj = Concentration(meta={'id': datetime.now().strftime("%Y-%m-%d")})
-    obj.date = datetime.now().strftime("%Y-%m-%d")
+    obj = Concentration(meta={'id': daytime1.strftime("%Y-%m-%d")})
+    obj.date = daytime1.strftime("%Y-%m-%d")
     obj.start_time = start_time
     obj.end_time = end_time
     obj.concentration_coefficient = concentration_median
     obj.word_frequency = word_frequency
-    obj.day_of_week = datetime.today().weekday()
+    obj.day_of_week = daytime1.weekday()
     obj.save()

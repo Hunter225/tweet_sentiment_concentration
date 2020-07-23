@@ -12,4 +12,4 @@ class Concentration(Document):
     word_frequency = Text()
     day_of_week = Integer()
     class Index:
-        name = 'conentration'
+        name = 'concentration'
