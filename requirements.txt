@@ -1,9 +1,7 @@
 flask==1.1.2
 flask-restful==0.3.8
-beautifulsoup4==4.9.1
 opencc-python-reimplemented==0.1.5
 jieba==0.40
-newsapi-python==0.2.6
 Elasticsearch==7.5.1
 elasticsearch-dsl==7.1.0
 scikit-learn==0.23.1
