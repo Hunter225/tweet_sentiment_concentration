@@ -129,5 +129,9 @@ dmypy.json
 .pyre/
 
 
+# Config files
+*.cnf
+*.ini
+
 #csv result of the sentiment concentration calculated
 .csv
