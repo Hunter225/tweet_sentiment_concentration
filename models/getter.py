@@ -1,6 +1,7 @@
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Q, Search, MultiSearch
 from util import util
+from datetime import datetime
 
 class Getter():
 
@@ -8,6 +9,12 @@ class Getter():
         self.client = Elasticsearch()
 
     def get_by_time_range(self, start_time, end_time):
+
+        # reformat start_time and end_time
+        if isinstance(start_time, datetime):
+            start_time = start_time.strftime("%Y-%m-%dT%H:%M:%S")
+        if isinstance(end_time, datetime):
+            end_time = end_time.strftime("%Y-%m-%dT%H:%M:%S")
 
         tweets = []
         time_query = Q('range', created_at={

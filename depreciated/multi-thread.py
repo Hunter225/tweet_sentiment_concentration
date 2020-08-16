@@ -1,4 +1,4 @@
-from calculation.sentiment_clustering import cal_sentiment_clustering_size
+from calculation.sentiment_concentration import cal_sentiment_concentration
 from datetime import datetime
 from datetime import timedelta
 from threading import Thread
@@ -8,13 +8,10 @@ def cal_daily_sentiment_concentration(daytime0, num_of_date, thread_results, ind
     for i in range(num_of_date):
         start_time = daytime0
         end_time = daytime0 + timedelta(days=1)
-
-        start_time_str = start_time.strftime("%d/%m/%Y %H:%M:%S")
-        end_time_str = end_time.strftime("%d/%m/%Y %H:%M:%S")
-
-        concentration_coefficient = cal_sentiment_clustering_size(start_time, end_time)
-
-        result = dict(start_time = start_time_str, end_time=end_time_str, concentration_coefficient = concentration_coefficient)
+        
+        concentration_coefficient = cal_sentiment_concentration(tweets)
+        result = dict(start_time = start_time.strftime("%Y-%m-%dT%H:%M:%S"), end_time = end_time.strftime("%Y-%m-%dT%H:%M:%S"), concentration_coefficient = concentration_coefficient)
+        
         thread_result.append(result)
         thread_results[index] = thread_result
 
@@ -42,7 +39,7 @@ def multi_thread_cal_daily_sentiment_concentration(daytime0, project_days, num_o
 
 def write_result_csv(results):
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S%f")
-    with open('result/VIX_predictor/sentiment_concentration_coefficient-%s.csv' % timestamp, 'w') as result_file:
+    with open('result/sentiment_concentration/sentiment_concentration_coefficient-%s.csv' % timestamp, 'w') as result_file:
 
         for result in results:
             result_file.write(result['start_time'])

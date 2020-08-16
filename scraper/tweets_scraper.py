@@ -5,7 +5,7 @@ from datetime import datetime
 class TweetScraper():
 
     @classmethod
-    def get_tweets_from_user_timeline(cls, screen_name, start_date_str, end_date_str, max_count=20):
+    def get_tweets_from_user_timeline(cls, screen_name, start_date_str, end_date_str, max_count=40):
 
         tweetCriteria = got.manager.TweetCriteria().setUsername(screen_name)\
                                                 .setSince(start_date_str)\

@@ -1,7 +1,6 @@
 from util import util
 from scraper.tweets_scraper import TweetScraper
 from models.tweet import Tweet
-from elasticsearch_dsl.connections import connections
 import ssl
 from datetime import datetime
 from datetime import timedelta
@@ -27,10 +26,11 @@ def _scrape_tweets(start_date_str, num_of_date_project, max_count_per_day):
             #print(screen_name)
             tweets = TweetScraper.get_tweets_from_user_timeline(screen_name, start_date_str, end_date_str, max_count_per_day)
 
-            connections.create_connection(hosts=['localhost'])
             Tweet.init()
+            
             len_of_tweets = len(tweets)
-            #print("Total length of tweets: %s" % str(len_of_tweets))
+            print("Total length of tweets: %s" % str(len_of_tweets))
+
             no_of_tweets_saved = 1
             for tweet in tweets:
                 try:
