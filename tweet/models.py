@@ -20,4 +20,5 @@ class TweetSchema(models.Model):
     #fields
     tweet_create_time = models.DateTimeField(null=False)
     screen_name = models.CharField(null=False, max_length=255, blank=False)
+    tweet_external_id = models.CharField(null=True, max_length=255, blank=False)
     full_text = models.TextField(null=False, blank=False)
