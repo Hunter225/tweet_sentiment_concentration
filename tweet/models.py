@@ -3,8 +3,11 @@ import constants
 
 class TweetSchema(models.Model):
     class Meta:
-        ordering = ('created_on',)
+        ordering = ('tweet_create_time',)
         db_table = 'tweets'
+        indexes = [
+            models.Index(fields=['tweet_external_id', 'tweet_create_time'])
+        ]
 
     status_values = {constants.status_active: 'A', constants.status_deleted: 'D'}
     created_on = models.DateTimeField(null=False, auto_now_add=True)
@@ -20,5 +23,5 @@ class TweetSchema(models.Model):
     #fields
     tweet_create_time = models.DateTimeField(null=False)
     screen_name = models.CharField(null=False, max_length=255, blank=False)
-    tweet_external_id = models.CharField(null=True, max_length=255, blank=False)
+    tweet_external_id = models.CharField(null=True, max_length=255, blank=False, unique=True)
     full_text = models.TextField(null=False, blank=False)

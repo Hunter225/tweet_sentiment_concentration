@@ -3,7 +3,7 @@ import constants
 
 class ConcentrationSchema(models.Model):
     class Meta:
-        ordering = ('created_on',)
+        ordering = ('calculation_date',)
         db_table = 'concentrations'
 
     status_values = {constants.status_active: 'A', constants.status_deleted: 'D'}
@@ -20,6 +20,7 @@ class ConcentrationSchema(models.Model):
     calculation_date = models.DateField(null=False, blank=False)
     start_time = models.DateTimeField(null=False, blank=False)
     end_time = models.DateTimeField(null=False, blank=False)
-    concentration = models.FloatField(null=False, blank=False)
+    concentration_coefficient = models.FloatField(null=False, blank=False)
     word_frequency = models.TextField(null=False, blank=False)
     day_of_week = models.IntegerField(null=False, blank=False)
+    previous_concentration = models.ForeignKey('self', on_delete=models.SET_NULL, null=True)

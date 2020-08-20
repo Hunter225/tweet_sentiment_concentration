@@ -1,9 +1,10 @@
 from django.db import models
 import constants
+from concentration.models import ConcentrationSchema
 
 class SuggestionSchema(models.Model):
     class Meta:
-        ordering = ('created_on',)
+        ordering = ('suggestion_date',)
         db_table = 'suggestions'
 
     status_values = {constants.status_active: 'A', constants.status_deleted: 'D'}
@@ -18,6 +19,5 @@ class SuggestionSchema(models.Model):
             return constants.status_deleted
 
     suggestion_date = models.DateField(null=False, blank=False)
-    previous_concentraion = models.FloatField(null=False, blank=False)
-    current_concentraion = models.FloatField(null=False, blank=False)
+    concentration = models.ForeignKey(ConcentrationSchema, on_delete=models.SET_NULL, null=True)
     suggestion = models.IntegerField(null=False, blank=False)
