@@ -66,7 +66,7 @@ def generate_tweets_vectors(tweets_vector_space_dimension, tweets):
     return tweets_vectors
 
 
-def _cal_sentiment_concentration(tweets_vectors, clustering_algo = AgglomerativeClustering, feature_num=20, cluster_num=3):
+def _cal_sentiment_concentration(tweets_vectors, clustering_algo = AgglomerativeClustering, cluster_num=3):
     # clustering tweets
     tweets_clustering = clustering_algo(n_clusters=cluster_num).fit(tweets_vectors)
     tweets_cluster = tweets_clustering.labels_
@@ -83,5 +83,5 @@ def cal_sentiment_concentration(tweets, clustering_algo = AgglomerativeClusterin
     #find most frequently used words and treat it as the 'dimension' of the vector space
     tweets_vector_space_dimension = find_frequently_used_words(features, tweets, topK=feature_num)
     tweets_vectors = generate_tweets_vectors(tweets_vector_space_dimension, tweets)
-    
-    return _cal_sentiment_concentration(tweets_vectors, clustering_algo = clustering_algo, feature_num=feature_num, cluster_num=cluster_num)
+    concentration = _cal_sentiment_concentration(tweets_vectors, clustering_algo = clustering_algo, cluster_num=cluster_num)
+    return concentration, tweets_vector_space_dimension
