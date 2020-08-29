@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '*w85aen)*as4t82fmhqnoo!uj^%)5!6&we@utdcw!r=c(sz36h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,6 +46,12 @@ INSTALLED_APPS = [
     'suggestion.apps.SuggestionConfig',
     'cronjobs.apps.CronjobsConfig'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
 
 CRONJOBS = [
     ('20 13 * * 1-5', 'cronjobs.daily_vix_suggestion.execute')
