@@ -9,7 +9,13 @@ import json
 def get_latest_24h_tweets():
     dt1 = datetime.utcnow() - timedelta(days=1)
     dt2 = datetime.utcnow()
-    tweets = TweetSchema.objects.filter(tweet_create_time__gte=dt1, tweet_create_time__lte=dt2).values_list('full_text', flat=True)
+    # To align with the version verified by back test, the tweets are retreieved with the order of the twitter acconts
+    # It has been tested that, the order of tweet has very small effect on the concentration result calculated
+    # The effect on PnL need to be verified again before the ordering is removed
+    tweets = []
+    for screen_name in settings.TWITTER_ACCOUNTS:
+        tweets_of_an_account= [tweet for tweet in TweetSchema.objects.filter(screen_name=screen_name, tweet_create_time__gte=dt1, tweet_create_time__lte=dt2).values_list('full_text', flat=True)]
+        tweets.extend(tweets_of_an_account)
     return tweets
 
 def main():
