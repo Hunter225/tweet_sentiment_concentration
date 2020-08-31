@@ -34,7 +34,7 @@ def main():
     
     median_of_results = statistics.median(trial_results)
     
-    previous_concentration_object = ConcentrationSchema.objects.all().order_by('calculation_date').last()
+    previous_concentration_object = None
     
     concentration_data = dict(concentration_coefficient = median_of_results, calculation_date=today,
                             status='A', word_frequency = json.dumps(word_frequency_in_tweets), day_of_week=day_of_week,
@@ -42,6 +42,13 @@ def main():
     
     current_concentration_object, is_created = ConcentrationSchema.objects.update_or_create(calculation_date=today, defaults=concentration_data)
 
+    concentration_query_set = ConcentrationSchema.objects.all().order_by('calculation_date')
+
+    if is_created:
+        previous_concentration_object = concentration_query_set.last()
+    else:
+        previous_concentration_object = concentration_query_set[len(concentration_query_set) - 2]
+        
     suggestion = 0
     if current_concentration_object.concentration_coefficient - previous_concentration_object.concentration_coefficient > 0.1:
         suggestion = 1
