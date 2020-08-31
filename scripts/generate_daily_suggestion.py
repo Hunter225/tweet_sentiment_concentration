@@ -5,6 +5,7 @@ from calculation.sentiment_concentration import cal_sentiment_concentration
 from datetime import datetime, timedelta
 import statistics
 import json
+from django.conf import settings
 
 def get_latest_24h_tweets():
     dt1 = datetime.utcnow() - timedelta(days=1)
