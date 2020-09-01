@@ -54,7 +54,7 @@ REST_FRAMEWORK = {
 }
 
 CRONJOBS = [
-    ('20 13 * * 1-5', 'cronjobs.daily_vix_suggestion.execute')
+    ('*/10 * * * 1-5', 'cronjobs.daily_vix_suggestion.execute')
 ]
 
 MIDDLEWARE = [
