@@ -48,6 +48,9 @@ def main():
         previous_concentration_object = concentration_query_set.last()
     else:
         previous_concentration_object = concentration_query_set[len(concentration_query_set) - 2]
+
+    current_concentration_object.previous_concentration ＝ previous_concentration_object
+    current_concentration_object.save()
         
     suggestion = 0
     if current_concentration_object.concentration_coefficient - previous_concentration_object.concentration_coefficient > 0.1:
