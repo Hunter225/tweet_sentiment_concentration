@@ -49,7 +49,7 @@ def main():
     else:
         previous_concentration_object = concentration_query_set[len(concentration_query_set) - 2]
 
-    current_concentration_object.previous_concentration ＝ previous_concentration_object
+    current_concentration_object.previous_concentration = previous_concentration_object
     current_concentration_object.save()
         
     suggestion = 0
