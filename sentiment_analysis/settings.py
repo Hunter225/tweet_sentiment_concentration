@@ -33,7 +33,6 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django_extensions',
-    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,8 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'tweet.apps.TweetConfig',
     'concentration.apps.ConcentrationConfig',
-    'suggestion.apps.SuggestionConfig',
-    'cronjobs.apps.CronjobsConfig'
+    'suggestion.apps.SuggestionConfig'
 ]
 
 REST_FRAMEWORK = {
@@ -53,9 +51,6 @@ REST_FRAMEWORK = {
     )
 }
 
-CRONJOBS = [
-    ('*/10 * * * 1-5', 'cronjobs.daily_vix_suggestion.execute')
-]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
