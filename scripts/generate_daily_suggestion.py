@@ -45,9 +45,9 @@ def main():
     concentration_query_set = ConcentrationSchema.objects.all().order_by('calculation_date')
 
     if is_created:
-        previous_concentration_object = concentration_query_set.last()
-    else:
         previous_concentration_object = concentration_query_set[len(concentration_query_set) - 2]
+    else:
+        previous_concentration_object = concentration_query_set.last()
 
     current_concentration_object.previous_concentration = previous_concentration_object
     current_concentration_object.save()
