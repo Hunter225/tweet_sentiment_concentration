@@ -1,1 +1,1 @@
-*/5 * * * 1-5 cd /home/ubuntu/code/tweet_sentiment_concentration && /usr/bin/python3 /home/ubuntu/code/tweet_sentiment_concentration/manage.py runscript daily_vix_suggestion_cron
+20 13 * * 1-5 cd /home/ubuntu/code/tweet_sentiment_concentration && /usr/bin/python3 /home/ubuntu/code/tweet_sentiment_concentration/manage.py runscript daily_vix_suggestion_cron
