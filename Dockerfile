@@ -6,4 +6,4 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 COPY . /code/
 EXPOSE 8081
-ENTRYPOINT bash -c "chmod 700 /code/start.sh;/code/start.sh"
+ENTRYPOINT bash -c "chmod 700 /code/start.sh; chmod 644 /code/cronjob; /code/start.sh"
