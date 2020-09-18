@@ -8,7 +8,7 @@ def _scrape_tweets_from_user_timeline(api_client, screen_name, start_date, end_d
     tweets = []
     new_tweets = []
 
-    for i in range(3):
+    for i in range(2):
         page = i + 1
         tweets_recieved = api_client.user_timeline(screen_name=screen_name, page=page, tweet_mode="extended", count=20)
         for tweet in tweets_recieved:
