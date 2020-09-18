@@ -82,7 +82,7 @@ def cal_sentiment_concentration(tweets, clustering_algo = AgglomerativeClusterin
     #preprocess tweets  #remove stop words, common words, and puntuaction
     tweets = [preprocess.prepro_for_en(tweet) for tweet in tweets]
     print(len(tweets))
-    print(tweets[10])
+    #print(tweets[10])
     features = identify_key_features(tweets)
     #find most frequently used words and treat it as the 'dimension' of the vector space
     tweets_vector_space_dimension = find_frequently_used_words(features, tweets, topK=feature_num)
