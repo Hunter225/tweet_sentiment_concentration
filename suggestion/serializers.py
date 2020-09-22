@@ -10,10 +10,10 @@ class SuggestionSerializer(serializers.HyperlinkedModelSerializer):
         model = SuggestionSchema
         fields = ('suggestion_date', 'suggestion', 'previous_concentration', 'current_concentration', 'hotwords')
 
-    def get_previous_concentration(self, suggestion):
+    def get_current_concentration(self, suggestion):
         return suggestion.concentration.concentration_coefficient
         
-    def get_current_concentration(self, suggestion):
+    def get_previous_concentration(self, suggestion):
         return suggestion.concentration.previous_concentration.concentration_coefficient
 
     def get_hotwords(self, suggestion):
